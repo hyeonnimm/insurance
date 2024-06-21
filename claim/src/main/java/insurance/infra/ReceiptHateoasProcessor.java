@@ -12,6 +12,12 @@ public class ReceiptHateoasProcessor
 
     @Override
     public EntityModel<Receipt> process(EntityModel<Receipt> model) {
+        model.add(
+            Link
+                .of(model.getRequiredLink("self").getHref() + "/requestclaim")
+                .withRel("requestclaim")
+        );
+
         return model;
     }
 }

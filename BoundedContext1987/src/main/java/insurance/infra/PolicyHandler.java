@@ -18,25 +18,23 @@ import org.springframework.stereotype.Service;
 public class PolicyHandler {
 
     @Autowired
-    ReviewRepository reviewRepository;
+    PaymentRepository paymentRepository;
 
     @StreamListener(KafkaProcessor.INPUT)
     public void whatever(@Payload String eventString) {}
 
     @StreamListener(
         value = KafkaProcessor.INPUT,
-        condition = "headers['type']=='ClaimRequested'"
+        condition = "headers['type']=='Reviewed'"
     )
-    public void wheneverClaimRequested_ReadyToReview(
-        @Payload ClaimRequested claimRequested
-    ) {
-        ClaimRequested event = claimRequested;
+    public void wheneverReviewed_ReadyToPay(@Payload Reviewed reviewed) {
+        Reviewed event = reviewed;
         System.out.println(
-            "\n\n##### listener ReadyToReview : " + claimRequested + "\n\n"
+            "\n\n##### listener ReadyToPay : " + reviewed + "\n\n"
         );
 
         // Sample Logic //
-        Review.readyToReview(event);
+        Payment.readyToPay(event);
     }
 }
 //>>> Clean Arch / Inbound Adaptor

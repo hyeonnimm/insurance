@@ -31,6 +31,7 @@ jobs:
         run: |
           mvn clean package -f ./claim/pom.xml
           mvn clean package -f ./review/pom.xml
+          mvn clean package -f ./BoundedContext1987/pom.xml
 
       - name: Docker Build and push for Claim
         uses: docker/build-push-action@v4
@@ -51,4 +52,14 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository }}/review:latest
             ghcr.io/${{ github.repository }}/review:${{ github.ref_name }}
+            
+      - name: Docker Build and push for BoundedContext1987
+        uses: docker/build-push-action@v4
+        with:
+          context: ./BoundedContext1987
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}/boundedcontext1987:latest
+            ghcr.io/${{ github.repository }}/boundedcontext1987:${{ github.ref_name }}
             
