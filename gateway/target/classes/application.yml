@@ -16,7 +16,11 @@ spring:
         - id: review
           uri: http://localhost:8083
           predicates:
-            - Path=, 
+            - Path=/reviews/**, 
+        - id: BoundedContext1987
+          uri: http://localhost:8084
+          predicates:
+            - Path=/payments/**, 
         - id: frontend
           uri: http://localhost:8080
           predicates:
@@ -48,7 +52,11 @@ spring:
         - id: review
           uri: http://review:8080
           predicates:
-            - Path=, 
+            - Path=/reviews/**, 
+        - id: BoundedContext1987
+          uri: http://boundedContext1987:8080
+          predicates:
+            - Path=/payments/**, 
         - id: frontend
           uri: http://frontend:8080
           predicates:

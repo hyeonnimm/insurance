@@ -9,17 +9,13 @@
         </template>
 
         <v-card-title v-if="value._links">
-            Receipt # {{decode(value._links.self.href.split("/")[value._links.self.href.split("/").length - 1])}}
+            Review # {{decode(value._links.self.href.split("/")[value._links.self.href.split("/").length - 1])}}
         </v-card-title >
         <v-card-title v-else>
-            Receipt
+            Review
         </v-card-title >        
 
         <v-card-text>
-            <String label="CustomerId" v-model="value.customerId" :editMode="editMode" :inputUI="''"/>
-            <String label="DiseaseCode" v-model="value.diseaseCode" :editMode="editMode" :inputUI="''"/>
-            <String label="UserName" v-model="value.userName" :editMode="editMode" :inputUI="''"/>
-            <Date label="Dt" v-model="value.dt" :editMode="editMode" :inputUI="''"/>
         </v-card-text>
 
         <v-card-actions>
@@ -60,20 +56,6 @@
         </v-card-actions>
         <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn
-                v-if="!editMode"
-                color="primary"
-                text
-                @click="openRequestClaim"
-            >
-                RequestClaim
-            </v-btn>
-            <v-dialog v-model="requestClaimDiagram" width="500">
-                <RequestClaimCommand
-                    @closeDialog="closeRequestClaim"
-                    @requestClaim="requestClaim"
-                ></RequestClaimCommand>
-            </v-dialog>
         </v-card-actions>
 
         <v-snackbar
@@ -96,7 +78,7 @@
 
 
     export default {
-        name: 'ClaimReceipt',
+        name: 'ReviewReview',
         components:{
         },
         props: {
@@ -111,7 +93,6 @@
                 timeout: 5000,
                 text: '',
             },
-            requestClaimDiagram: false,
         }),
 	async created() {
         },
@@ -152,7 +133,7 @@
 
                     if(!this.offline) {
                         if(this.isNew) {
-                            temp = await axios.post(axios.fixUrl('/receipts'), this.value)
+                            temp = await axios.post(axios.fixUrl('/reviews'), this.value)
                         } else {
                             temp = await axios.put(axios.fixUrl(this.value._links.self.href), this.value)
                         }
@@ -208,32 +189,6 @@
             },
             change(){
                 this.$emit('input', this.value);
-            },
-            async requestClaim(params) {
-                try {
-                    if(!this.offline) {
-                        var temp = await axios.put(axios.fixUrl(this.value._links['requestclaim'].href), params)
-                        for(var k in temp.data) {
-                            this.value[k]=temp.data[k];
-                        }
-                    }
-
-                    this.editMode = false;
-                    this.closeRequestClaim();
-                } catch(e) {
-                    this.snackbar.status = true
-                    if(e.response && e.response.data.message) {
-                        this.snackbar.text = e.response.data.message
-                    } else {
-                        this.snackbar.text = e
-                    }
-                }
-            },
-            openRequestClaim() {
-                this.requestClaimDiagram = true;
-            },
-            closeRequestClaim() {
-                this.requestClaimDiagram = false;
             },
         },
     }

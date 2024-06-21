@@ -22,6 +22,7 @@ See the README.md files inside the each microservices directory:
 
 - claim
 - review
+- BoundedContext1987
 
 
 ## Run API Gateway (Spring Gateway)
@@ -37,6 +38,11 @@ mvn spring-boot:run
 ```
 - review
 ```
+ http :8088/reviews id="id" 
+```
+- BoundedContext1987
+```
+ http :8088/payments id="id" 
 ```
 
 

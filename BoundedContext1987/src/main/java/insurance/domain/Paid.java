@@ -9,15 +9,15 @@ import lombok.*;
 //<<< DDD / Domain Event
 @Data
 @ToString
-public class Reviewed extends AbstractEvent {
+public class Paid extends AbstractEvent {
 
     private Long id;
 
-    public Reviewed(Review aggregate) {
+    public Paid(Payment aggregate) {
         super(aggregate);
     }
 
-    public Reviewed() {
+    public Paid() {
         super();
     }
 }

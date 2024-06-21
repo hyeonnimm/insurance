@@ -46,6 +46,29 @@
                     </v-list-item>
 
 
+                    <v-list-item
+                        class="px-2"
+                        key="reviews"
+                        to="/reviews/reviews"
+                        @click="changeUrl()"
+                        color="primary"
+                        style="font-weight:700;"
+                    >
+                        Review
+                    </v-list-item>
+
+
+                    <v-list-item
+                        class="px-2"
+                        key="payments"
+                        to="/boundedContext1987s/payments"
+                        @click="changeUrl()"
+                        color="primary"
+                        style="font-weight:700;"
+                    >
+                        Payment
+                    </v-list-item>
+
 
                 </v-list>
             </v-navigation-drawer>
@@ -130,6 +153,20 @@ export default {
                 description: '', 
                 key: 'receipts', 
                 route: '/claims/receipts',
+                ImageUrl: '',
+            },
+            { 
+                title: 'Review', 
+                description: '', 
+                key: 'reviews', 
+                route: '/reviews/reviews',
+                ImageUrl: '',
+            },
+            { 
+                title: 'Payment', 
+                description: '', 
+                key: 'payments', 
+                route: '/boundedContext1987s/payments',
                 ImageUrl: '',
             },
             

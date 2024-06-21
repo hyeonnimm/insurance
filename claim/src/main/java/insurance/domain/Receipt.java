@@ -1,7 +1,6 @@
 package insurance.domain;
 
 import insurance.ClaimApplication;
-import insurance.domain.ClaimRequested;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -27,10 +26,7 @@ public class Receipt {
     private Date dt;
 
     @PostPersist
-    public void onPostPersist() {
-        ClaimRequested claimRequested = new ClaimRequested(this);
-        claimRequested.publishAfterCommit();
-    }
+    public void onPostPersist() {}
 
     public static ReceiptRepository repository() {
         ReceiptRepository receiptRepository = ClaimApplication.applicationContext.getBean(
@@ -38,5 +34,15 @@ public class Receipt {
         );
         return receiptRepository;
     }
+
+    //<<< Clean Arch / Port Method
+    public void requestClaim(RequestClaimCommand requestClaimCommand) {
+        //implement business logic here:
+
+        ClaimRequested claimRequested = new ClaimRequested(this);
+        claimRequested.publishAfterCommit();
+    }
+    //>>> Clean Arch / Port Method
+
 }
 //>>> DDD / Aggregate Root
